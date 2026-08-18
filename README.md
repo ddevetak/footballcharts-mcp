@@ -80,4 +80,6 @@ paid tier: contact@football-charts.com.
 
 ## License
 
-MIT (server code). The data served by the API remains © football-charts.com.
+MIT (server code only). The data served by the football-charts.com API
+remains © football-charts.com, provided under the terms at
+https://www.football-charts.com/developers.
