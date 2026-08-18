@@ -1,0 +1,30 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.ddevetak/footballcharts-mcp",
+  "description": "MCP server for football-charts.com \u2014 tables, results, fixtures, model probabilities and Monte Carlo season projections for 90+ football leagues.",
+  "repository": {
+    "url": "https://github.com/ddevetak/footballcharts-mcp",
+    "source": "github"
+  },
+  "version": "0.1.1",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "footballcharts-mcp",
+      "version": "0.1.1",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "FC_API_KEY",
+          "description": "football-charts.com API key (free: POST https://footballcharts-backend.onrender.com/api/v1/keys/register/ with {\"email\": ...}, or use the form at https://www.football-charts.com/developers)",
+          "isRequired": true,
+          "format": "string",
+          "isSecret": true
+        }
+      ]
+    }
+  ],
+  "websiteUrl": "https://www.football-charts.com/developers"
+}
