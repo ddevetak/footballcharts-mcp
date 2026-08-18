@@ -1,0 +1,36 @@
+{
+  "name": "footballcharts-mcp",
+  "version": "0.1.0",
+  "description": "MCP server for football-charts.com \u2014 tables, results, fixtures, model probabilities and Monte Carlo season projections for 90+ football leagues.",
+  "type": "module",
+  "bin": {
+    "footballcharts-mcp": "src/index.js"
+  },
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "keywords": [
+    "mcp",
+    "football",
+    "soccer",
+    "statistics",
+    "predictions",
+    "model-context-protocol"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^3.25.0"
+  },
+  "author": "Damir Devetak (https://www.football-charts.com)",
+  "homepage": "https://www.football-charts.com/developers",
+  "files": [
+    "src",
+    "README.md",
+    "LICENSE"
+  ]
+}
