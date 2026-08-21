@@ -28,6 +28,20 @@ curl -X POST https://footballcharts-backend.onrender.com/api/v1/keys/register/ \
 
 The key (`fc_...`) is shown once — store it.
 
+## Use it on claude.ai (web or mobile) — nothing to install
+
+Settings → Connectors → **Add custom connector**, then paste:
+
+```
+https://mcp.football-charts.com/fc_your_key_here/mcp
+```
+
+The key sits in the URL because a connector field accepts only a URL. If your
+client can send headers, `POST https://mcp.football-charts.com/mcp` with
+`Authorization: Bearer fc_your_key` works identically. Keys are read-only,
+free and replaceable, so a key in a URL grants published statistics and
+nothing else.
+
 ## Use with Claude Desktop
 
 `claude_desktop_config.json`:

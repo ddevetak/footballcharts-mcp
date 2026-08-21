@@ -7,7 +7,9 @@ const transport = new StdioClientTransport({
   env: {
     ...process.env,
     FC_API_BASE: 'http://127.0.0.1:8199/api/v1',
-    FC_API_KEY: 'fc_f2JeZLdWV_YwDck3JzL1MKJwzHPDEoGf',
+    // The stub on 127.0.0.1:8199 does not validate the key, so any value works.
+    // Never commit a real one: this file is public.
+    FC_API_KEY: process.env.FC_API_KEY || 'fc_local_stub_key',
   },
 });
 const client = new Client({ name: 'e2e', version: '0.0.1' });
