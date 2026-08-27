@@ -1,5 +1,7 @@
 # football-charts MCP server
 
+[![npm](https://img.shields.io/npm/v/footballcharts-mcp)](https://www.npmjs.com/package/footballcharts-mcp) [![license](https://img.shields.io/npm/l/footballcharts-mcp)](LICENSE) [![MCP registry](https://img.shields.io/badge/MCP%20registry-io.github.ddevetak%2Ffootballcharts--mcp-blue)](https://registry.modelcontextprotocol.io)
+
 Give your AI assistant live football data for **90+ leagues**: tables, results,
 fixtures, model probabilities and Monte Carlo season projections from
 [football-charts.com](https://www.football-charts.com).
@@ -78,6 +80,14 @@ claude mcp add football-charts -e FC_API_KEY=fc_your_key_here -- npx -y football
 | `get_team` | One team: match log, goal timing, stats. |
 | `get_goal_timing` | Goals per 15-minute bin, per team. |
 | `get_track_record` | FC's settled public prediction ledger. |
+
+## Things to ask
+
+- "How does the Allsvenskan title race look after this weekend?"
+- "When does Flamengo usually score — early or late?"
+- "Show me the K League table, and who's overperforming what the market expected."
+- "Which team in Serie B hasn't conceded in the first 15 minutes?"
+- "What is Football Charts' actual prediction track record this season?"
 
 ## Configuration
 
