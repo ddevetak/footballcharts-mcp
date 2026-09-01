@@ -133,9 +133,13 @@ export function buildServer({ apiKey, apiBase } = {}) {
   server.registerTool('get_goal_timing', {
     title: 'Goal timing heat map',
     annotations: READ_ONLY,
-    description: 'When each team in a league scores: goals per 15-minute bin per team, plus league-level stats (most active period, late-goal share).',
-    inputSchema: { league: LEAGUE, season: SEASON },
-  }, guard(({ league, season }) => fcGet(`/leagues/${league}/goal-timing/`, { season })));
+    description: 'When teams score: goals per 15-minute bin. Pass `team` (name substring) to get ONE team; omit it for the whole league. Each row carries labelled `bins`, `peak_bins` (ties listed — report them as a tie), `late_share_pct` and `first_half_pct`, plus league-level stats.',
+    inputSchema: {
+      league: LEAGUE,
+      season: SEASON,
+      team: z.string().optional().describe('Team name substring, e.g. "flamengo" — returns only that team'),
+    },
+  }, guard(({ league, season, team }) => fcGet(`/leagues/${league}/goal-timing/`, { season, team })));
 
   server.registerTool('get_track_record', {
     title: 'Model track record',
