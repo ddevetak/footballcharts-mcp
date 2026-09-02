@@ -171,6 +171,18 @@ const httpServer = createServer(async (req, res) => {
   }
 
   const apiKey = keyFrom(req, url);
+  // One log line per JSON-RPC message so "are agents calling?" is a log
+  // search, not a mystery (2026-09-02: key census couldn't split MCP from
+  // REST). Key is truncated the same way the backend admin displays it.
+  try {
+    for (const m of (Array.isArray(body) ? body : [body])) {
+      if (!m || !m.method) continue;
+      const tool = m.method === 'tools/call' ? ' ' + (m.params && m.params.name) : '';
+      console.log('rpc ' + m.method + tool
+        + ' key=' + (apiKey ? apiKey.slice(0, 11) + '…' : 'none')
+        + ' ua="' + (req.headers['user-agent'] || '') + '"');
+    }
+  } catch {}
   const server = buildServer({ apiKey });
   const transport = new StreamableHTTPServerTransport({ sessionIdGenerator: undefined });
 
