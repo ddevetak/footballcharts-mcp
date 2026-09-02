@@ -15,7 +15,7 @@ const LEAGUE = z.string().describe(
 const SEASON = z.string().optional().describe(
   "Season string exactly as returned by list_leagues (summer leagues '2026', winter '2026-2027'). Omit for the latest.");
 
-export const SERVER_INFO = { name: 'football-charts', version: '0.2.0' };
+export const SERVER_INFO = { name: 'football-charts', version: '0.2.1' };
 
 // Every tool is a GET against a read-only API: nothing here can write, delete,
 // spend or send. Declaring that lets clients skip a confirmation prompt they
