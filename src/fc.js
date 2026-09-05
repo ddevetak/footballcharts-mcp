@@ -21,7 +21,7 @@ export function makeClient({ apiKey = '', apiBase } = {}) {
       headers: {
         Authorization: `Bearer ${apiKey}`,
         Accept: 'application/json',
-        'User-Agent': 'footballcharts-mcp/0.2',
+        'User-Agent': 'footballcharts-mcp/0.3',
       },
     });
     let body;

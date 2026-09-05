@@ -1,17 +1,17 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.ddevetak/footballcharts-mcp",
-  "description": "Tables, results, model probabilities and Monte Carlo projections for 90+ football leagues.",
+  "description": "Tables, results, fixtures, goal timing, baseline-model probabilities and Monte Carlo projections for 93 football leagues, incl. lower divisions other sources skip.",
   "repository": {
     "url": "https://github.com/ddevetak/footballcharts-mcp",
     "source": "github"
   },
-  "version": "0.2.0",
+  "version": "0.3.0",
   "packages": [
     {
       "registryType": "npm",
       "identifier": "footballcharts-mcp",
-      "version": "0.2.0",
+      "version": "0.3.0",
       "transport": {
         "type": "stdio"
       },

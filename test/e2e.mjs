@@ -6,7 +6,9 @@ const transport = new StdioClientTransport({
   args: ['src/index.js'],
   env: {
     ...process.env,
-    FC_API_BASE: 'http://127.0.0.1:8199/api/v1',
+    // Default: the local stub. Set FC_API_BASE (and a real FC_API_KEY) to run
+    // the same script against production.
+    FC_API_BASE: process.env.FC_API_BASE || 'http://127.0.0.1:8199/api/v1',
     // The stub on 127.0.0.1:8199 does not validate the key, so any value works.
     // Never commit a real one: this file is public.
     FC_API_KEY: process.env.FC_API_KEY || 'fc_local_stub_key',
@@ -26,13 +28,15 @@ async function call(name, args) {
   return text;
 }
 
+await call('about_football_charts', {});
 await call('list_leagues', {});
 await call('get_league_table', { league: 'premier' });
-await call('get_rankings', { league: 'premier', view: 'luck' });
+await call('get_league_table', { league: 'premier', view: 'luck' });
 const res = await call('get_results', { league: 'premier', last: 3 });
 if (res.includes('odds')) console.log('!!! ODDS LEAKED');
 await call('get_season_projection', { league: 'premier' });
 await call('get_goal_timing', { league: 'premier' });
+await call('get_goal_timing', { league: 'premier', team: 'Arsenal' });
 await call('get_team', { league: 'premier', team: 'arsenal' });
 await call('get_track_record', {});
 // error paths

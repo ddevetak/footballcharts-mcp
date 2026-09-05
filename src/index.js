@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // MCP server for football-charts.com — stdio transport (npx / Claude Desktop).
 //
-// 10 read-only tools over the keyed developer API (/api/v1/). Free tier:
+// 10 read-only tools (9 data + 1 orientation) over the keyed developer API (/api/v1/). Free tier:
 // all 90+ leagues, current + previous season, model probabilities and
 // Monte Carlo projections — no betting odds. FC publishes probabilities
 // and a settled track record, not tips.
