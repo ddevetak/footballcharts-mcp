@@ -8,13 +8,13 @@
   "author": {
     "name": "Damir Devetak / Football Charts",
     "email": "contact@football-charts.com",
-    "url": "https://www.football-charts.com"
+    "url": "https://github.com/ddevetak"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/ddevetak/footballcharts-mcp"
   },
-  "homepage": "https://www.football-charts.com",
+  "homepage": "https://www.football-charts.com/developers",
   "documentation": "https://www.football-charts.com/developers",
   "support": "https://github.com/ddevetak/footballcharts-mcp/issues",
   "icon": "icon.png",
