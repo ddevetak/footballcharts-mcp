@@ -1,4 +1,4 @@
-# football-charts MCP server
+# Football data MCP server — 93 leagues, lower divisions included (Football Charts)
 
 [![npm](https://img.shields.io/npm/v/footballcharts-mcp)](https://www.npmjs.com/package/footballcharts-mcp) [![license](https://img.shields.io/npm/l/footballcharts-mcp)](LICENSE) [![MCP registry](https://img.shields.io/badge/MCP%20registry-io.github.ddevetak%2Ffootballcharts--mcp-blue)](https://registry.modelcontextprotocol.io)
 
