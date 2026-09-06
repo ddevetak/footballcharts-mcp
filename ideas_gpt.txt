@@ -1,0 +1,66 @@
+from pathlib import Path
+
+content = """# Football-Charts: Data-Driven Distribution via Weekly Football Stories
+
+## Objective
+
+Build a repeatable distribution engine around Football-Charts' strongest asset:
+
+> **Original football data and statistical analysis that produces interesting, newsworthy findings.**
+
+The goal is NOT to publish generic promotional content such as:
+
+> "Check out Football-Charts!"
+
+Instead, every piece of content should answer:
+
+> **"What interesting thing did the Football-Charts data discover?"**
+
+The story is the product of the data. Football-Charts is the source.
+
+---
+
+# 1. Core concept
+
+Every week, automatically analyze the Football-Charts database and identify unusual, surprising, or useful football findings.
+
+Examples:
+
+- A team with an unexpectedly high probability of winning its league
+- A team massively outperforming/underperforming its league position
+- The biggest model-vs-market divergence
+- A team with an unusual first-goal profile
+- A league with an unusual Over 2.5 pattern
+- A team whose recent form is dramatically different from its season baseline
+- A surprising Monte Carlo projection
+- A team that looks much stronger/weaker than its current table position
+- The biggest statistical change from last week
+- A little-known league producing an unusual statistical pattern
+
+The key is:
+
+> **Lead with the discovery, not the website.**
+
+---
+
+# 2. Example
+
+Bad:
+
+> "Football-Charts now has statistics for Bundesliga 2. Check it out!"
+
+Good:
+
+> **We simulated 10,000 Bundesliga 2 seasons. One team currently sitting 7th has a surprisingly high promotion probability.**
+
+Then show the data.
+
+For example:
+
+```text
+Team              Promotion probability
+Team A                  42.8%
+Team B                  31.6%
+Team C                  24.1%
+Team D                  18.7%
+Team E                  12.3%

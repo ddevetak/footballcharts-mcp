@@ -6,12 +6,12 @@
     "url": "https://github.com/ddevetak/footballcharts-mcp",
     "source": "github"
   },
-  "version": "0.4.0",
+  "version": "0.4.1",
   "packages": [
     {
       "registryType": "npm",
       "identifier": "footballcharts-mcp",
-      "version": "0.4.0",
+      "version": "0.4.1",
       "transport": {
         "type": "stdio"
       },
@@ -26,5 +26,11 @@
       ]
     }
   ],
-  "websiteUrl": "https://www.football-charts.com/developers"
+  "websiteUrl": "https://www.football-charts.com/developers",
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://mcp.football-charts.com/mcp"
+    }
+  ]
 }

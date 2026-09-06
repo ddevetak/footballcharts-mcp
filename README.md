@@ -95,6 +95,7 @@ opening and closing odds for 91 leagues, 2020 onward, are a paid dataset at
 
 ## Changelog
 
+- **0.4.1** — registry entry declares the hosted endpoint (`remotes`) so connector directories list it; `get_results` ordering wording clarified (chronological, `last=N` keeps the latest N).
 - **0.4.0** — a key is optional: the API serves keyless callers at 300/day
   per IP (20/min) and its 429 says how to get a free key; `about` and
   `list_leagues` guidance updated; MCPB desktop-extension bundle

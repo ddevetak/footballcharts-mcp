@@ -20,7 +20,7 @@ const LEAGUE = z.string().describe(
 const SEASON = z.string().optional().describe(
   "Season string exactly as list_leagues returns it: winter-calendar leagues look like '2026-2027', summer-calendar leagues (Brazil, Sweden, Norway, Japan…) like '2026'. Omit for the current season. The free tier serves the current and previous season only.");
 
-export const SERVER_INFO = { name: 'football-charts', version: '0.4.0' };
+export const SERVER_INFO = { name: 'football-charts', version: '0.4.1' };
 
 // Every tool is a GET against a read-only API: nothing here can write, delete,
 // spend or send. Declaring that lets clients skip a confirmation prompt they
@@ -149,15 +149,15 @@ export function buildServer({ apiKey, apiBase } = {}) {
     annotations: READ_ONLY,
     description:
       'Use for scores, "how did X do lately", head-to-head in a season, half-time scores or first-goal minutes. ' +
-      'Returns finished matches of a league season, oldest first: date, teams, FT score, HT score, first-goal minute, goalless flag. ' +
-      'Filter with team (name substring) and cap with last (N most recent). No odds. ' +
+      'Returns finished matches of a league season in chronological order (earliest first, latest last): date, teams, FT score, HT score, first-goal minute, goalless flag. ' +
+      'Filter with team (name substring). Set last=N to keep only the N latest matches (still in chronological order). No odds; for upcoming matches use get_fixtures. ' +
       'Example: "Last five Liverpool results" → get_results premier, team="Liverpool", last=5.',
     inputSchema: {
       league: LEAGUE,
       season: SEASON,
       team: z.string().optional().describe("Team name substring, e.g. 'Liverpool'"),
       last: z.number().int().min(1).max(500).optional()
-        .describe('Return only the N most recent matches (default: all)'),
+        .describe('Keep only the N latest matches of the season, e.g. 5 for recent form (default: all)'),
     },
   }, guard('get_results', async ({ league, season, team, last }) => {
     const data = await fcGet(`/leagues/${league}/results/`, { season, team });
