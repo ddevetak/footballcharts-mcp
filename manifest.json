@@ -2,7 +2,7 @@
   "manifest_version": "0.3",
   "name": "footballcharts-mcp",
   "display_name": "Football Charts — football data for 93 leagues",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "description": "Tables, results, fixtures, goal timing and season projections for 93 football leagues, lower divisions included. No key needed.",
   "long_description": "Give Claude football data for **93 leagues in 42 countries** — top divisions, the lower tiers most sources skip (Spanish regional groups, Czech 2/3, Baltic, Nordic, Asian and African leagues) and women's leagues.\n\nTen read-only tools: league tables (classic, luck-adjusted, goals), results with half-time scores and first-goal minutes, upcoming fixtures with a public baseline model's probabilities, one-match detail, Monte Carlo season projections (title / top-4 / relegation, 10,000 runs, daily), team pages, goal timing per 15-minute bin, and the settled public track record of every published model lean — losses included.\n\n**Works without an API key** (300 requests/day per IP). A free key from football-charts.com/developers lifts that to 5,000/day. Current and previous season per league; no betting odds — the historical odds archive is a separate dataset at football-charts.com/data.\n\nStatistics, not betting advice. Data by football-charts.com.",
   "author": {

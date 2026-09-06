@@ -1,6 +1,6 @@
 {
   "name": "footballcharts-mcp",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "description": "MCP server for football-charts.com \u2014 tables, results, fixtures, goal timing, a public baseline model and Monte Carlo season projections for 93 football leagues, including the lower divisions other sources skip.",
   "type": "module",
   "bin": {

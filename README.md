@@ -95,6 +95,7 @@ opening and closing odds for 91 leagues, 2020 onward, are a paid dataset at
 
 ## Changelog
 
+- **0.5.0** — every tool has an `outputSchema` and returns `structuredContent`; descriptions rewritten from the consumer side (purpose → when to use a sibling instead → one example); `get_match` drops storage internals. The tool list is ~6k tokens (was ~3k) — the schemas are the cost. Two deliberate choices: `list_leagues` keeps its `list_` prefix because it enumerates everything rather than fetching one thing, and `league` stays a free string rather than an enum of the 93 keys (an enum would add ~700 tokens to every tool; `list_leagues` resolves a name in one call). Schema leaves are untyped so that an unexpected `null` never fails a call; the field types are what the API returns (numbers for counts and probabilities, ISO dates, `'home:away'` score strings).
 - **0.4.1** — registry entry declares the hosted endpoint (`remotes`) so connector directories list it; `get_results` ordering wording clarified (chronological, `last=N` keeps the latest N).
 - **0.4.0** — a key is optional: the API serves keyless callers at 300/day
   per IP (20/min) and its 429 says how to get a free key; `about` and
