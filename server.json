@@ -6,20 +6,20 @@
     "url": "https://github.com/ddevetak/footballcharts-mcp",
     "source": "github"
   },
-  "version": "0.3.0",
+  "version": "0.4.0",
   "packages": [
     {
       "registryType": "npm",
       "identifier": "footballcharts-mcp",
-      "version": "0.3.0",
+      "version": "0.4.0",
       "transport": {
         "type": "stdio"
       },
       "environmentVariables": [
         {
           "name": "FC_API_KEY",
-          "description": "football-charts.com API key (free: POST https://footballcharts-backend.onrender.com/api/v1/keys/register/ with {\"email\": ...}, or use the form at https://www.football-charts.com/developers)",
-          "isRequired": true,
+          "description": "Optional. Without it the API allows 300 requests/day per IP; a free key (POST https://footballcharts-backend.onrender.com/api/v1/keys/register/ with {\"email\": ...}, or the form at https://www.football-charts.com/developers) lifts that to 5,000/day.",
+          "isRequired": false,
           "format": "string",
           "isSecret": true
         }

@@ -20,7 +20,7 @@ const LEAGUE = z.string().describe(
 const SEASON = z.string().optional().describe(
   "Season string exactly as list_leagues returns it: winter-calendar leagues look like '2026-2027', summer-calendar leagues (Brazil, Sweden, Norway, Japan…) like '2026'. Omit for the current season. The free tier serves the current and previous season only.");
 
-export const SERVER_INFO = { name: 'football-charts', version: '0.3.0' };
+export const SERVER_INFO = { name: 'football-charts', version: '0.4.0' };
 
 // Every tool is a GET against a read-only API: nothing here can write, delete,
 // spend or send. Declaring that lets clients skip a confirmation prompt they
@@ -56,8 +56,8 @@ const ABOUT = {
     'For "when does X score" questions use get_goal_timing with a team filter and answer from peak_bins (ties are listed — report them as a tie).',
     'Quote the season and the date the data is from; attribute as "Data: football-charts.com".',
   ],
-  free_tier: 'all leagues, current + previous season, 5,000 requests/day, no odds. Older seasons and per-bookmaker opening/closing odds: https://www.football-charts.com/data',
-  get_a_key: 'POST https://footballcharts-backend.onrender.com/api/v1/keys/register/ with {"email": "..."} or the form at https://www.football-charts.com/developers — free, shown once.',
+  free_tier: 'Works WITHOUT a key: 300 requests/day, 20/min per IP. A free key lifts that to 5,000/day, 60/min. Both: all leagues, current + previous season, no odds. Older seasons and per-bookmaker opening/closing odds: https://www.football-charts.com/data',
+  get_a_key: 'Only needed past 300 requests/day: POST https://footballcharts-backend.onrender.com/api/v1/keys/register/ with {"email": "..."} or the form at https://www.football-charts.com/developers — free, shown once. Hosted: https://mcp.football-charts.com/mcp (keyless) or /<key>/mcp.',
   tools: {
     list_leagues: 'league keys + seasons available to this key',
     get_league_table: 'standings; view=luck or goals for alternative rankings',
@@ -76,7 +76,7 @@ const ABOUT = {
  * @param {{apiKey?: string, apiBase?: string}} opts
  */
 export function buildServer({ apiKey, apiBase } = {}) {
-  const { fcGet, requireKey } = makeClient({ apiKey, apiBase });
+  const { fcGet } = makeClient({ apiKey, apiBase });
   const server = new McpServer(SERVER_INFO);
 
   // One structured line per call on stderr (stdio) — Render captures stderr for
@@ -96,7 +96,6 @@ export function buildServer({ apiKey, apiBase } = {}) {
   const guard = (name, fn) => async (args) => {
     const started = Date.now();
     try {
-      requireKey();
       const out = asText(await fn(args ?? {}));
       logCall(name, started, true);
       return out;
@@ -112,7 +111,7 @@ export function buildServer({ apiKey, apiBase } = {}) {
     description:
       'Read this first when unsure whether football-charts.com can answer a question, or before the first call in a session. ' +
       'Returns what the source covers (93 leagues incl. lower divisions), what it does NOT hold, how league keys and season strings work, ' +
-      'how to phrase model probabilities honestly, and what each tool is for. Works without an API key. ' +
+      'how to phrase model probabilities honestly, and what each tool is for. Every tool works without an API key (300 calls/day per IP; a free key gives 5,000). ' +
       'Example: "Can you get me Estonian league data?" → call this, then list_leagues.',
     inputSchema: {},
   }, async () => asText(ABOUT));

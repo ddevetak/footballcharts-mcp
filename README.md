@@ -11,17 +11,10 @@ FC publishes **probabilities and a settled track record — not betting tips**.
 Every model signal is published before kickoff and graded after; the
 `get_track_record` tool returns that ledger.
 
-## Free tier
+## No key needed
 
-- All 90+ leagues (top and lower divisions, women's leagues)
-- Current + previous season per league
-- Model probabilities (Dixon-Coles based) and daily 10,000-run Monte Carlo
-  season projections
-- 5,000 requests/day, 60/minute
-- No betting odds (odds + full historical archive are part of the paid tier —
-  contact contact@football-charts.com)
-
-## Get a key
+Every tool works without an API key at **300 requests/day per IP** (20/min).
+A free key lifts that to **5,000/day, 60/min** — get one in seconds:
 
 ```bash
 curl -X POST https://footballcharts-backend.onrender.com/api/v1/keys/register/ \
@@ -29,25 +22,35 @@ curl -X POST https://footballcharts-backend.onrender.com/api/v1/keys/register/ \
   -d '{"email":"you@example.com"}'
 ```
 
-The key (`fc_...`) is shown once — store it.
+The key (`fc_...`) is shown once — store it. Both tiers: all 93 leagues
+(top and lower divisions, women's leagues), current + previous season,
+model probabilities and daily 10,000-run Monte Carlo projections, **no
+betting odds** (the historical odds archive is a paid dataset at
+[football-charts.com/data](https://www.football-charts.com/data)).
 
 ## Use it on claude.ai (web or mobile) — nothing to install
 
 Settings → Connectors → **Add custom connector**, then paste:
 
 ```
-https://mcp.football-charts.com/fc_your_key_here/mcp
+https://mcp.football-charts.com/mcp
 ```
 
-The key sits in the URL because a connector field accepts only a URL. If your
-client can send headers, `POST https://mcp.football-charts.com/mcp` with
-`Authorization: Bearer fc_your_key` works identically. Keys are read-only,
-free and replaceable, so a key in a URL grants published statistics and
-nothing else.
+That is the keyless tier. With a key, paste
+`https://mcp.football-charts.com/fc_your_key_here/mcp` instead (a connector
+field accepts only a URL, so the key travels in it; keys are read-only, free
+and replaceable). Clients that can send headers use
+`POST https://mcp.football-charts.com/mcp` with `Authorization: Bearer fc_…`.
 
-## Use with Claude Desktop
+## Use with Claude Desktop — one-click extension
 
-`claude_desktop_config.json`:
+Download `footballcharts-mcp-<version>.mcpb` from the
+[latest release](https://github.com/ddevetak/footballcharts-mcp/releases/latest)
+and open it; Claude Desktop installs it. The API key field can stay empty.
+
+## Use with Claude Desktop — manual config
+
+`claude_desktop_config.json` (`FC_API_KEY` is optional since 0.4.0):
 
 ```json
 {
@@ -92,6 +95,10 @@ opening and closing odds for 91 leagues, 2020 onward, are a paid dataset at
 
 ## Changelog
 
+- **0.4.0** — a key is optional: the API serves keyless callers at 300/day
+  per IP (20/min) and its 429 says how to get a free key; `about` and
+  `list_leagues` guidance updated; MCPB desktop-extension bundle
+  (`manifest.json`, icon); registry `isRequired: false` for FC_API_KEY.
 - **0.3.0** — descriptions rewritten for the model (when / returns / example);
   new `about_football_charts` orientation tool (keyless); `get_rankings`
   folded into `get_league_table` via `view`; `get_goal_timing` gains a
@@ -114,6 +121,15 @@ opening and closing odds for 91 leagues, 2020 onward, are a paid dataset at
 |---|---|---|
 | `FC_API_KEY` | — (required) | Your API key |
 | `FC_API_BASE` | FC production API | Override for self-hosted/testing |
+
+## Privacy Policy
+
+This extension sends your tool requests (league keys, team names, seasons —
+never your conversation) to football-charts.com's API over HTTPS. Requests
+are rate-limited per IP; if you configure an API key, the key identifies
+your account and its usage is counted per key. No conversation content is
+stored. Football Charts' privacy policy:
+<https://www.football-charts.com/privacy>. Questions: contact@football-charts.com.
 
 ## Terms
 

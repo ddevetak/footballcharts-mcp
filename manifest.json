@@ -1,0 +1,113 @@
+{
+  "manifest_version": "0.3",
+  "name": "footballcharts-mcp",
+  "display_name": "Football Charts — football data for 93 leagues",
+  "version": "0.4.0",
+  "description": "Tables, results, fixtures, goal timing and season projections for 93 football leagues, lower divisions included. No key needed.",
+  "long_description": "Give Claude football data for **93 leagues in 42 countries** — top divisions, the lower tiers most sources skip (Spanish regional groups, Czech 2/3, Baltic, Nordic, Asian and African leagues) and women's leagues.\n\nTen read-only tools: league tables (classic, luck-adjusted, goals), results with half-time scores and first-goal minutes, upcoming fixtures with a public baseline model's probabilities, one-match detail, Monte Carlo season projections (title / top-4 / relegation, 10,000 runs, daily), team pages, goal timing per 15-minute bin, and the settled public track record of every published model lean — losses included.\n\n**Works without an API key** (300 requests/day per IP). A free key from football-charts.com/developers lifts that to 5,000/day. Current and previous season per league; no betting odds — the historical odds archive is a separate dataset at football-charts.com/data.\n\nStatistics, not betting advice. Data by football-charts.com.",
+  "author": {
+    "name": "Damir Devetak / Football Charts",
+    "email": "contact@football-charts.com",
+    "url": "https://www.football-charts.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ddevetak/footballcharts-mcp"
+  },
+  "homepage": "https://www.football-charts.com",
+  "documentation": "https://www.football-charts.com/developers",
+  "support": "https://github.com/ddevetak/footballcharts-mcp/issues",
+  "icon": "icon.png",
+  "server": {
+    "type": "node",
+    "entry_point": "src/index.js",
+    "mcp_config": {
+      "command": "node",
+      "args": [
+        "${__dirname}/src/index.js"
+      ],
+      "env": {
+        "FC_API_KEY": "${user_config.api_key}"
+      }
+    }
+  },
+  "tools": [
+    {
+      "name": "about_football_charts",
+      "description": "What this source covers, what it does not, how league keys and seasons work, how to phrase probabilities. Call first when unsure."
+    },
+    {
+      "name": "list_leagues",
+      "description": "Turn a league name into its key; see the seasons available."
+    },
+    {
+      "name": "get_league_table",
+      "description": "Standings, form, expected points; view=luck or goals for alternative rankings."
+    },
+    {
+      "name": "get_results",
+      "description": "Finished matches with FT/HT scores and first-goal minute; filter by team, cap with last."
+    },
+    {
+      "name": "get_fixtures",
+      "description": "Upcoming matches with the baseline model's calibrated probabilities across markets."
+    },
+    {
+      "name": "get_match",
+      "description": "One upcoming match in full, by slug."
+    },
+    {
+      "name": "get_season_projection",
+      "description": "Title / top-4 / relegation probabilities and points ranges, 10,000 simulations, daily."
+    },
+    {
+      "name": "get_team",
+      "description": "One team: table row, match log, goal timing, stats."
+    },
+    {
+      "name": "get_goal_timing",
+      "description": "Goals per 15-minute bin per team with peak_bins; pass team for one team."
+    },
+    {
+      "name": "get_track_record",
+      "description": "The public settled ledger of every published model lean, losses included."
+    }
+  ],
+  "tools_generated": false,
+  "keywords": [
+    "football",
+    "soccer",
+    "football data",
+    "football api",
+    "league tables",
+    "fixtures",
+    "results",
+    "lower leagues",
+    "sports data",
+    "statistics"
+  ],
+  "license": "MIT",
+  "privacy_policies": [
+    "https://www.football-charts.com/privacy"
+  ],
+  "compatibility": {
+    "claude_desktop": ">=0.10.0",
+    "platforms": [
+      "darwin",
+      "win32",
+      "linux"
+    ],
+    "runtimes": {
+      "node": ">=18.0.0"
+    }
+  },
+  "user_config": {
+    "api_key": {
+      "type": "string",
+      "title": "Football Charts API key (optional)",
+      "description": "Leave empty to use the keyless tier (300 requests/day). A free key from https://www.football-charts.com/developers gives 5,000/day.",
+      "sensitive": true,
+      "required": false
+    }
+  }
+}

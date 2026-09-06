@@ -17,11 +17,13 @@ export function makeClient({ apiKey = '', apiBase } = {}) {
     for (const [k, v] of Object.entries(params)) {
       if (v !== undefined && v !== null && v !== '') url.searchParams.set(k, String(v));
     }
+    // No key → no Authorization header: the API serves keyless callers at a
+    // small per-IP budget (300/day, 20/min) and its 429 says how to get a key.
+    const headers = { Accept: 'application/json', 'User-Agent': 'footballcharts-mcp/0.4' };
+    if (apiKey) headers.Authorization = `Bearer ${apiKey}`;
     const res = await fetch(url, {
       headers: {
-        Authorization: `Bearer ${apiKey}`,
-        Accept: 'application/json',
-        'User-Agent': 'footballcharts-mcp/0.3',
+        ...headers,
       },
     });
     let body;
@@ -37,16 +39,8 @@ export function makeClient({ apiKey = '', apiBase } = {}) {
     return body;
   }
 
-  function requireKey() {
-    if (!apiKey) {
-      throw new Error(
-        'No football-charts API key supplied. Get a free key: ' +
-        `curl -X POST ${base}/keys/register/ -H 'Content-Type: application/json' ` +
-        `-d '{"email":"you@example.com"}' — then set FC_API_KEY (stdio) or use ` +
-        'your keyed URL https://mcp.football-charts.com/<key>/mcp (hosted).'
-      );
-    }
-  }
+  // Kept for API compatibility with 0.3 callers; a key is optional since 0.4.
+  function requireKey() {}
 
   return { fcGet, requireKey, base };
 }

@@ -29,6 +29,8 @@ async function call(name, args) {
 }
 
 await call('about_football_charts', {});
+// Since 0.4.0 a missing FC_API_KEY is not an error: the API serves keyless
+// callers at 300/day. Run with FC_API_KEY unset against production to verify.
 await call('list_leagues', {});
 await call('get_league_table', { league: 'premier' });
 await call('get_league_table', { league: 'premier', view: 'luck' });
