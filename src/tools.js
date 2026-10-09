@@ -56,7 +56,7 @@ const LEAGUE = z.string().describe(
 const SEASON = z.string().optional().describe(
   "Season string as listed by list_leagues: '2026-2027' for winter-calendar leagues, '2026' for summer-calendar leagues (Brazil, Sweden, Norway, Japan…). Omit for the current season. The free tier serves the current and previous season.");
 
-export const SERVER_INFO = { name: 'football-charts', version: '0.5.0' };
+export const SERVER_INFO = { name: 'football-charts', version: '0.6.0' };
 
 // Every tool is a GET against a read-only API: nothing here can write, delete,
 // spend or send. Declaring that lets clients skip a confirmation prompt they

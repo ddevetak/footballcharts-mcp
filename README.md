@@ -7,9 +7,9 @@ divisions other sources skip: tables, results, fixtures, goal timing, a public
 baseline model and Monte Carlo season projections from
 [football-charts.com](https://www.football-charts.com).
 
-FC publishes **probabilities and a settled track record — not betting tips**.
-Every model signal is published before kickoff and graded after; the
-`get_track_record` tool returns that ledger.
+FC publishes **probabilities and a public calibration record — not betting tips**.
+Every model probability is published before kickoff and scored after; the
+`get_track_record` tool returns that record (hit rate, Brier score, reliability buckets).
 
 ## No key needed
 
@@ -72,29 +72,29 @@ claude mcp add football-charts -e FC_API_KEY=fc_your_key_here -- npx -y football
 
 ## Tools
 
-Ten read-only tools. Descriptions are written for the model: when to use it,
-what comes back, one example. `about_football_charts` needs no key.
+Ten read-only tools. Each description says what the tool returns.
 
 | tool | use it for |
 |---|---|
-| `about_football_charts` | What this source covers and does not, how keys and seasons work, how to phrase probabilities. Call first when unsure. |
-| `list_leagues` | Turn a league name into its key; see the seasons your key can read. |
-| `get_league_table` | Standings, form, expected points; `view=luck` or `goals` for alternative rankings. |
-| `get_results` | Finished matches with FT/HT scores and first-goal minute; filter by team, cap with `last`. |
-| `get_fixtures` | Upcoming matches with the baseline model's calibrated probabilities across markets. |
-| `get_match` | One upcoming match in full, by slug. |
-| `get_season_projection` | Title / top-4 / relegation probabilities and points ranges, 10,000 simulations, daily. |
-| `get_team` | One team: table row, match log, goal timing, stats. |
-| `get_goal_timing` | Goals per 15-minute bin per team with `peak_bins`; pass `team` for one team. |
-| `get_track_record` | The public settled ledger of every published model lean, losses included. |
+| `about_football_charts` | Summary of the source: leagues covered, what it does not hold, league-key and season formats, how to read the probabilities. |
+| `list_leagues` | Every league covered (93 across 42 countries) with its key, country and seasons available. |
+| `get_league_table` | Standings for one league season with form, expected points and a luck category; `view=luck` or `goals` for alternative rankings. |
+| `get_results` | Finished matches of one league season with full-time and half-time scores and first-goal minute; filter by `team`, keep the latest N with `last`. |
+| `get_fixtures` | Upcoming matches of one league with the model's calibrated probabilities. |
+| `get_match` | One match in full, by slug: model probabilities, team ratings and goal-timing histograms. |
+| `get_season_projection` | Title, top-four and bottom-three probabilities and points ranges from 10,000 simulations, refreshed daily. |
+| `get_team` | One team's season: table row, match log, goals per 15-minute period and first-goal distribution. |
+| `get_goal_timing` | Goals per 15-minute period for every team in a league season, with peak periods and league totals; pass `team` for one team. |
+| `get_track_record` | The model's public calibration record: hit rate, Brier score and reliability buckets. |
 
-The model is a public baseline (Dixon-Coles). It is calibrated and it does
-not beat the bookmaker market; `get_track_record` is the proof. Per-bookmaker
+The model is a public baseline (Dixon-Coles). It is calibrated, and
+`get_track_record` shows how well; it does not beat the bookmaker market. Per-bookmaker
 opening and closing odds for 91 leagues, 2020 onward, are a paid dataset at
 [football-charts.com/data](https://www.football-charts.com/data).
 
 ## Changelog
 
+- **0.6.0** — every answer links the football-charts.com page with the same data (`source_url`); `get_track_record` returns a calibration record (hit rate, Brier score, reliability buckets); descriptions say what each tool returns, with no instructions to the model, and each tool's title is also in `annotations.title`; outputs drop the site-only fields `roi_*`, `profit_*` and `gates`; `get_season_projection` explains a missing projection instead of failing output validation. Same ten tools and arguments.
 - **0.5.0** — every tool has an `outputSchema` and returns `structuredContent`; descriptions rewritten from the consumer side (purpose → when to use a sibling instead → one example); `get_match` drops storage internals. The tool list is ~6k tokens (was ~3k) — the schemas are the cost. Two deliberate choices: `list_leagues` keeps its `list_` prefix because it enumerates everything rather than fetching one thing, and `league` stays a free string rather than an enum of the 93 keys (an enum would add ~700 tokens to every tool; `list_leagues` resolves a name in one call). Schema leaves are untyped so that an unexpected `null` never fails a call; the field types are what the API returns (numbers for counts and probabilities, ISO dates, `'home:away'` score strings).
 - **0.4.1** — registry entry declares the hosted endpoint (`remotes`) so connector directories list it; `get_results` ordering wording clarified (chronological, `last=N` keeps the latest N).
 - **0.4.0** — a key is optional: the API serves keyless callers at 300/day
