@@ -139,6 +139,15 @@ const httpServer = createServer(async (req, res) => {
     return res.end();
   }
 
+  // OpenAI plugin directory domain check: the portal issues a token that must
+  // be served here as plain text. Set OPENAI_APPS_CHALLENGE on the Render
+  // service; unset -> 404, so nothing is exposed by default.
+  if (url.pathname === '/.well-known/openai-apps-challenge') {
+    const token = (process.env.OPENAI_APPS_CHALLENGE || '').trim();
+    res.writeHead(token ? 200 : 404, { 'Content-Type': 'text/plain; charset=utf-8' });
+    return res.end(token || 'not configured');
+  }
+
   // Render health check + a human landing on the bare host.
   if (url.pathname === '/healthz') return json(res, 200, { ok: true, ...SERVER_INFO });
   if (url.pathname === '/') {
@@ -183,7 +192,7 @@ const httpServer = createServer(async (req, res) => {
         + ' ua="' + (req.headers['user-agent'] || '') + '"');
     }
   } catch {}
-  const server = buildServer({ apiKey });
+  const server = buildServer({ apiKey, ref: refFor(req.headers['user-agent']) });
   const transport = new StreamableHTTPServerTransport({ sessionIdGenerator: undefined });
 
   // Free the per-request pair whichever way the exchange ends.
@@ -200,6 +209,14 @@ const httpServer = createServer(async (req, res) => {
     if (!res.headersSent) json(res, 500, { error: 'internal error' });
   }
 });
+
+// Which assistant is calling, for the ?ref= tag on source_url links. The
+// user-agent is all a stateless endpoint has; unknown clients count as mcp.
+function refFor(ua = '') {
+  if (/openai|chatgpt/i.test(ua)) return 'chatgpt';
+  if (/claude|anthropic/i.test(ua)) return 'claude';
+  return 'mcp';
+}
 
 httpServer.listen(PORT, () => {
   console.log(`football-charts MCP server running (streamable http) on :${PORT}`);

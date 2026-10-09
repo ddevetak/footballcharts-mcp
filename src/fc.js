@@ -7,7 +7,20 @@
 // and must bind a key per request. A module-level key would leak one caller's
 // quota — or data — into another's session.
 
+import { AsyncLocalStorage } from 'node:async_hooks';
+
 const DEFAULT_BASE = 'https://footballcharts-backend.onrender.com/api/v1';
+
+// Which tool is on the stack, so fcGet can name it to the API in X-FC-Tool.
+// AsyncLocalStorage and not a module-level variable: the hosted HTTP server
+// handles many callers at once, and a plain variable would attribute one
+// caller's request to whichever tool another caller entered last.
+const toolContext = new AsyncLocalStorage();
+
+/** Run `fn` with `name` recorded as the tool behind any API call it makes. */
+export function withTool(name, fn) {
+  return toolContext.run(name, fn);
+}
 
 export function makeClient({ apiKey = '', apiBase } = {}) {
   const base = (apiBase || process.env.FC_API_BASE || DEFAULT_BASE).replace(/\/$/, '');
@@ -20,7 +33,18 @@ export function makeClient({ apiKey = '', apiBase } = {}) {
     // No key → no Authorization header: the API serves keyless callers at a
     // small per-IP budget (300/day, 20/min) and its 429 says how to get a key.
     const headers = { Accept: 'application/json', 'User-Agent': 'footballcharts-mcp/0.4' };
+    // Names the tool behind this call so usage can be read per tool rather
+    // than as one undifferentiated MCP total. Server-side it is treated as
+    // untrusted input: matched against the known tool list, else discarded.
+    const tool = toolContext.getStore();
+    if (tool) headers['X-FC-Tool'] = tool;
     if (apiKey) headers.Authorization = `Bearer ${apiKey}`;
+    // The hosted server serves every ChatGPT / Claude user from one egress
+    // address; without this the API's per-IP keyless budget (300/day) would be
+    // shared by all of them. The secret identifies the service, not a user,
+    // so it may come from the environment. Unset → ordinary keyless call.
+    const serviceSecret = (process.env.FC_MCP_SERVICE_SECRET || '').trim();
+    if (!apiKey && serviceSecret) headers['X-FC-MCP-Secret'] = serviceSecret;
     const res = await fetch(url, {
       headers: {
         ...headers,
@@ -34,6 +58,9 @@ export function makeClient({ apiKey = '', apiBase } = {}) {
     }
     if (!res.ok) {
       const err = body?.error || {};
+      if (err.code === 'season_gated') {
+        throw new Error('That season is outside the free window, which covers the current and previous season of each league. list_leagues shows the exact season strings available.');
+      }
       throw new Error(err.message || `football-charts API error ${res.status} (${err.code || 'unknown'})`);
     }
     return body;
