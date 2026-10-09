@@ -144,3 +144,11 @@ paid tier: contact@football-charts.com.
 MIT (server code only). The data served by the football-charts.com API
 remains © football-charts.com, provided under the terms at
 https://www.football-charts.com/developers.
+
+## Cursor plugin
+
+This repository is also a Cursor plugin (`.cursor-plugin/plugin.json`). It adds the
+hosted MCP server above (no key needed) and a `football-data` skill that explains
+the tools and the REST API. To try it locally, copy the repository to
+`~/.cursor/plugins/local/football-charts`, reload Cursor, and check Customize for
+the Football Charts MCP server and skill.

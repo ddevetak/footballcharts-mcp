@@ -1,0 +1,17 @@
+{
+  "name": "football-charts",
+  "displayName": "Football Charts",
+  "version": "1.0.0",
+  "description": "Football (soccer) statistics for 93 leagues in 42 countries, including lower divisions and women's leagues: results with half-time scores, league tables, fixtures, goal timing and season projections. Read-only, no API key needed.",
+  "author": {
+    "name": "Football Charts",
+    "email": "contact@football-charts.com"
+  },
+  "homepage": "https://www.football-charts.com/developers",
+  "repository": "https://github.com/ddevetak/footballcharts-mcp",
+  "license": "MIT",
+  "logo": "icon.png",
+  "keywords": ["football", "soccer", "sports", "statistics", "sports data", "mcp"],
+  "skills": "./skills/",
+  "mcpServers": "./mcp.json"
+}
