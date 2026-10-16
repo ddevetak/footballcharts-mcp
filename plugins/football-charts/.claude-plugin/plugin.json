@@ -10,5 +10,13 @@
   "homepage": "https://www.football-charts.com/developers",
   "repository": "https://github.com/ddevetak/footballcharts-mcp",
   "license": "MIT",
-  "keywords": ["football", "soccer", "sports", "statistics", "sports data", "mcp"]
+  "keywords": [
+    "football",
+    "soccer",
+    "sports",
+    "statistics",
+    "sports data",
+    "mcp"
+  ],
+  "privacyPolicyUrl": "https://www.football-charts.com/privacy"
 }

@@ -147,7 +147,7 @@ https://www.football-charts.com/developers.
 
 ## Claude Code plugin
 
-This repository is also a Claude Code plugin (`.claude-plugin/plugin.json`). It adds
+This repository is also a Claude Code plugin (`plugins/football-charts/`). It adds
 the hosted MCP server above (no key needed) and the `football-data` skill:
 
 ```
