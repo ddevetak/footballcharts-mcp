@@ -145,6 +145,15 @@ MIT (server code only). The data served by the football-charts.com API
 remains © football-charts.com, provided under the terms at
 https://www.football-charts.com/developers.
 
+## Claude Code plugin
+
+This repository is also a Claude Code plugin (`.claude-plugin/plugin.json`). It adds
+the hosted MCP server above (no key needed) and the `football-data` skill:
+
+```
+/plugin install football-charts --marketplace ddevetak/footballcharts-mcp
+```
+
 ## Cursor plugin
 
 This repository is also a Cursor plugin (`.cursor-plugin/plugin.json`). It adds the

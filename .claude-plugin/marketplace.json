@@ -1,0 +1,17 @@
+{
+  "name": "football-charts",
+  "description": "Football Charts: football (soccer) statistics for 93 leagues.",
+  "owner": {
+    "name": "Football Charts",
+    "email": "contact@football-charts.com",
+    "url": "https://www.football-charts.com"
+  },
+  "plugins": [
+    {
+      "name": "football-charts",
+      "source": "./",
+      "description": "Football (soccer) statistics for 93 leagues in 42 countries: results with half-time scores, league tables, fixtures, goal timing and season projections.",
+      "homepage": "https://www.football-charts.com/developers"
+    }
+  ]
+}
