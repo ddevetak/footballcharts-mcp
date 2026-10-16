@@ -1,0 +1,28 @@
+cff-version: 1.2.0
+message: "If you use Football Charts data, please cite the dataset below and credit \"Data by football-charts.com\" with a link to https://www.football-charts.com."
+title: "Football Charts MCP server"
+type: software
+authors:
+  - family-names: Devetak
+    given-names: Damir
+url: "https://www.football-charts.com"
+repository-code: "https://github.com/ddevetak/footballcharts-mcp"
+license: MIT
+keywords:
+  - football
+  - soccer
+  - sports data
+  - statistics
+preferred-citation:
+  type: data
+  title: "Football Match Results and Goal Timing"
+  authors:
+    - family-names: Devetak
+      given-names: Damir
+  doi: "10.5281/zenodo.22295583"
+  url: "https://www.football-charts.com"
+  publisher:
+    name: Zenodo
+  year: 2026
+  version: "2026.10"
+  license: CC-BY-4.0
