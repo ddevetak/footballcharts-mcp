@@ -18,5 +18,9 @@
     "sports data",
     "mcp"
   ],
-  "privacyPolicyUrl": "https://www.football-charts.com/privacy"
+  "privacyPolicyUrl": "https://www.football-charts.com/privacy",
+  "displayName": "Football Charts",
+  "supportUrl": "https://www.football-charts.com/developers",
+  "documentationUrl": "https://www.football-charts.com/developers",
+  "termsOfServiceUrl": "https://www.football-charts.com/terms"
 }
