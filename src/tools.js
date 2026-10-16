@@ -84,74 +84,77 @@ const READ_ONLY = {
 // field into an anyOf in the JSON Schema (3× the tool-list size, measured)
 // and one unexpected null becomes a failed call. Names + descriptions are
 // what a model reads; the types are documented in the README.
-const num = z.any().optional();
-const str = z.any().optional();
-const int = z.any().optional();
+// Factories, not shared instances: zod-to-json-schema turns a schema instance
+// used twice in one tool into a "$ref", and some MCP clients (fastmcp, which
+// Agno uses) fail to parse output schemas containing internal refs.
+const num = () => z.any().optional();
+const str = () => z.any().optional();
+const int = () => z.any().optional();
 const obj = (shape) => z.object(shape).passthrough();
 
 const ATTRIBUTION = { attribution: z.string().nullable().optional().describe('Cite as "Data by football-charts.com"') };
 const SEASON_CTX = {
-  league: str, season: str,
-  season_state: str.describe("'in_season' or 'finished'"),
-  current_season: str,
+  league: str(), season: str(),
+  season_state: str().describe("'in_season' or 'finished'"),
+  current_season: str(),
 };
 
 const TABLE_ROW = obj({
-  team: z.string(), position: int, played: int, won: int, drawn: int, lost: int,
-  goals_for: int, goals_against: int, goal_difference: int, points: int,
-  last_5_form: str.describe("Latest results as letters, e.g. 'WWDLW'"), last_5_points: int,
-  expected_points: num.describe('Points the underlying numbers say the team should have'),
-  luck_difference: num.describe('points − expected_points; positive = ahead of the numbers'),
-  luck_category: str.describe("'lucky' | 'fair' | 'unlucky'"),
-  expected_position: int,
-  avg_goals_scored: num, avg_goals_conceded: num, clean_sheets: int, over_25_percentage: num,
+  team: z.string(), position: int(), played: int(), won: int(), drawn: int(), lost: int(),
+  goals_for: int(), goals_against: int(), goal_difference: int(), points: int(),
+  last_5_form: str().describe("Latest results as letters, e.g. 'WWDLW'"), last_5_points: int(),
+  expected_points: num().describe('Points the underlying numbers say the team should have'),
+  luck_difference: num().describe('points − expected_points; positive = ahead of the numbers'),
+  luck_category: str().describe("'lucky' | 'fair' | 'unlucky'"),
+  expected_position: int(),
+  avg_goals_scored: num(), avg_goals_conceded: num(), clean_sheets: int(), over_25_percentage: num(),
 });
 
 const PROBS = obj({
-  home: num, away: num,
-  btts_yes: num, 'over_0.5': num, 'over_1.5': num, 'over_2.5': num, 'over_3.5': num, 'over_4.5': num,
-  'ht_over_0.5': num, 'ht_over_1.5': num,
-  expected_home_goals: num, expected_away_goals: num, expected_ht_goals: num,
+  home: num(), away: num(),
+  btts_yes: num(), 'over_0.5': num(), 'over_1.5': num(), 'over_2.5': num(), 'over_3.5': num(), 'over_4.5': num(),
+  'ht_over_0.5': num(), 'ht_over_1.5': num(),
+  expected_home_goals: num(), expected_away_goals: num(), expected_ht_goals: num(),
 }).describe('Probabilities 0–1. The draw is NOT a field: draw = 1 − home − away.');
 
 const MODEL_BLOCK = obj({
   dc_v2: obj({
-    model: str,
+    model: str(),
     calibrated: PROBS.nullable().optional().describe('Use these. Calibrated on settled matches.'),
-    data_through: str.describe('Last match date the model has seen'),
-    computed_at: str,
+    data_through: str().describe('Last match date the model has seen'),
+    computed_at: str(),
   }).nullable().optional(),
 });
 
 const FIXTURE = obj({
   slug: z.string().describe('Input to get_match'),
   home_team: z.string(), away_team: z.string(),
-  match_date: str, time: str, status: str,
-  league: str, country: str, real_league_name: str,
+  match_date: str(), time: str(), status: str(),
+  league: str(), country: str(), real_league_name: str(),
   model_predictions: MODEL_BLOCK.nullable().optional(),
 });
 
 const RESULT_ROW = obj({
-  date: str, time: str, homeTeam: z.string(), awayTeam: z.string(),
-  score: str.describe("Full-time 'home:away', e.g. '3:0'"), ht_result: str.describe("Half-time 'home:away'"),
-  first_goal_time: int.describe('Minute of the first goal; null when goalless'),
-  first_goal_time_extra: int.describe('Stoppage-time minutes added to first_goal_time'),
+  date: str(), time: str(), homeTeam: z.string(), awayTeam: z.string(),
+  score: str().describe("Full-time 'home:away', e.g. '3:0'"), ht_result: str().describe("Half-time 'home:away'"),
+  first_goal_time: int().describe('Minute of the first goal; null when goalless'),
+  first_goal_time_extra: int().describe('Stoppage-time minutes added to first_goal_time'),
   goalless: z.boolean().nullable().optional(),
 });
 
 const PROJECTION_TEAM = obj({
-  title: num, top4: num, bottom3: num.describe('Relegation-zone probability (bottom three)'),
-  bottom1: num, bottom2: num,
-  pts_now: int, played: int, gd_now: int,
-  mean_pts: num, p10_pts: int, p90_pts: int,
+  title: num(), top4: num(), bottom3: num().describe('Relegation-zone probability (bottom three)'),
+  bottom1: num(), bottom2: num(),
+  pts_now: int(), played: int(), gd_now: int(),
+  mean_pts: num(), p10_pts: int(), p90_pts: int(),
   position_matrix: z.array(z.number()).nullable().optional().describe('Probability of finishing 1st…last'),
 });
 
 const GOAL_TIMING_ROW = obj({
-  team: z.string(), total: int,
+  team: z.string(), total: int(),
   bins: z.record(z.string(), z.number()).nullable().optional().describe("Goals per bin: '0-15','15-30','30-45','45+','46-60','60-75','75-90','90+'"),
   peak_bins: z.array(z.string()).nullable().optional().describe('Bin(s) with most goals — ties are listed; report a tie as a tie'),
-  peak_goals: int, late_share_pct: num.describe('% of goals from 75′ on'), first_half_pct: num,
+  peak_goals: int(), late_share_pct: num().describe('% of goals from 75′ on'), first_half_pct: num(),
 });
 
 // Calibration record — the site's ledger reshaped for assistant surfaces.
@@ -181,9 +184,9 @@ export const shapeTrackRecord = (data) => {
   })) : t.recent;
   return { ...data, track_record: { summary: scoreBlock(t.summary), by_question, recent, pending: t.pending, accuracy: t.accuracy } };
 };
-const SCORE = obj({
-  n: int.describe('Scored predictions'), correct: int, incorrect: int,
-  void: int.describe('Postponed or abandoned; not scored'), hit_rate: num.describe('correct / (correct + incorrect)'),
+const SCORE = () => obj({
+  n: int().describe('Scored predictions'), correct: int(), incorrect: int(),
+  void: int().describe('Postponed or abandoned; not scored'), hit_rate: num().describe('correct / (correct + incorrect)'),
 });
 
 // ---------------------------------------------------------------------- about
@@ -288,9 +291,9 @@ export function buildServer({ apiKey, apiBase, ref = 'mcp' } = {}) {
     outputSchema: obj({
       leagues: z.array(obj({
         league: z.string().describe('The key to pass as `league`'), name: z.string(), country: z.string(),
-        seasons: z.array(z.string()).describe('Newest first; exact strings for `season`'), url: str,
+        seasons: z.array(z.string()).describe('Newest first; exact strings for `season`'), url: str(),
       })),
-      count: int, season_window: str, ...ATTRIBUTION,
+      count: int(), season_window: str(), ...ATTRIBUTION,
     }),
   }, guard('list_leagues', () => fcGet('/leagues/')));
 
@@ -304,7 +307,7 @@ export function buildServer({ apiKey, apiBase, ref = 'mcp' } = {}) {
       season: SEASON,
       view: z.enum(['classic', 'luck', 'goals']).nullable().optional().describe("Row order; default 'classic' (by points)"),
     },
-    outputSchema: obj({ ...SEASON_CTX, view: str, table: z.array(TABLE_ROW).nullable().optional(), ...ATTRIBUTION }),
+    outputSchema: obj({ ...SEASON_CTX, view: str(), table: z.array(TABLE_ROW).nullable().optional(), ...ATTRIBUTION }),
   }, guard('get_league_table', ({ league, season, view }) =>
     fcGet(`/leagues/${league}/table/`, { season, view: view && view !== 'classic' ? view : undefined })));
 
@@ -320,7 +323,7 @@ export function buildServer({ apiKey, apiBase, ref = 'mcp' } = {}) {
       last: z.number().int().min(1).max(500).nullable().optional()
         .describe('Keep only the N latest matches of the season, e.g. 5 for recent form (default: all)'),
     },
-    outputSchema: obj({ ...SEASON_CTX, count: int, note: str, matches: z.array(RESULT_ROW).nullable().optional(), ...ATTRIBUTION }),
+    outputSchema: obj({ ...SEASON_CTX, count: int(), note: str(), matches: z.array(RESULT_ROW).nullable().optional(), ...ATTRIBUTION }),
   }, guard('get_results', async ({ league, season, team, last }) => {
     const data = await fcGet(`/leagues/${league}/results/`, { season, team });
     if (last && Array.isArray(data.matches)) {
@@ -337,7 +340,7 @@ export function buildServer({ apiKey, apiBase, ref = 'mcp' } = {}) {
     description:
       'Returns the upcoming matches of one league, earliest first: kick-off date and time, teams, a match slug, and the model\'s calibrated probabilities (home and away win, over/under goal lines, both teams to score, half-time lines; the draw probability is 1 - home - away) with team attack and defence ratings. The probabilities come from a baseline statistical model of past results (no injuries, motivation or weather) and are not bookmaker prices.',
     inputSchema: { league: LEAGUE },
-    outputSchema: obj({ league: str, count: int, matches: z.array(FIXTURE).nullable().optional(), ...ATTRIBUTION }),
+    outputSchema: obj({ league: str(), count: int(), matches: z.array(FIXTURE).nullable().optional(), ...ATTRIBUTION }),
   }, guard('get_fixtures', ({ league }) => fcGet(`/leagues/${league}/fixtures/`)));
 
   server.registerTool('get_match', {
@@ -350,10 +353,10 @@ export function buildServer({ apiKey, apiBase, ref = 'mcp' } = {}) {
     },
     outputSchema: obj({
       match: obj({
-        slug: str, label: str, league: str, real_league_name: str, country: str, season: str,
-        match_date: str, time: str, home_team: str, away_team: str,
-        match_status: str.describe("'scheduled' before kick-off; 'ft' when finished"),
-        home_score: int, away_score: int, ht_result: str,
+        slug: str(), label: str(), league: str(), real_league_name: str(), country: str(), season: str(),
+        match_date: str(), time: str(), home_team: str(), away_team: str(),
+        match_status: str().describe("'scheduled' before kick-off; 'ft' when finished"),
+        home_score: int(), away_score: int(), ht_result: str(),
         model_predictions: MODEL_BLOCK.nullable().optional(),
         fgt_h: z.array(z.any()).nullable().optional().describe('Home side first-goal-time histogram'),
         fgt_a: z.array(z.any()).nullable().optional().describe('Away side first-goal-time histogram'),
@@ -376,12 +379,12 @@ export function buildServer({ apiKey, apiBase, ref = 'mcp' } = {}) {
     inputSchema: { league: LEAGUE },
     outputSchema: obj({
       projection: obj({
-        league: str, season: str, run_date: str, n_sims: int,
-        scheduled_remaining: int, expected_remaining: int, partial_schedule: z.boolean().nullable().optional(),
+        league: str(), season: str(), run_date: str(), n_sims: int(),
+        scheduled_remaining: int(), expected_remaining: int(), partial_schedule: z.boolean().nullable().optional(),
         teams: z.record(z.string(), PROJECTION_TEAM).describe('Keyed by team name'),
-        deltas_vs_prev: z.record(z.string(), obj({ title: num, top4: num, bottom3: num })).nullable().optional().describe('Change since the previous run'),
+        deltas_vs_prev: z.record(z.string(), obj({ title: num(), top4: num(), bottom3: num() })).nullable().optional().describe('Change since the previous run'),
       }).nullable().optional(),
-      note: str.describe('Set when no projection exists for the league yet'),
+      note: str().describe('Set when no projection exists for the league yet'),
       ...ATTRIBUTION,
     }),
   }, guard('get_season_projection', async ({ league }) => {
@@ -407,16 +410,16 @@ export function buildServer({ apiKey, apiBase, ref = 'mcp' } = {}) {
       season: SEASON,
     },
     outputSchema: obj({
-      team: str, slug: str, league: str, season: str, seasons: z.array(z.string()).nullable().optional(),
+      team: str(), slug: str(), league: str(), season: str(), seasons: z.array(z.string()).nullable().optional(),
       ranking: TABLE_ROW.nullable().optional().describe('The team\'s table row'),
       matches: z.array(obj({
-        date: str, time: str, home: str, away: str, venue: str.describe("'H' or 'A'"),
-        score: str, ht: str, first_goal_time: str, outcome: str.describe("'W' | 'D' | 'L'"),
+        date: str(), time: str(), home: str(), away: str(), venue: str().describe("'H' or 'A'"),
+        score: str(), ht: str(), first_goal_time: str(), outcome: str().describe("'W' | 'D' | 'L'"),
       })).nullable().optional(),
-      first_goal_bins: z.array(obj({ time: str, count: int })).nullable().optional(),
+      first_goal_bins: z.array(obj({ time: str(), count: int() })).nullable().optional(),
       stats: obj({
-        matches_with_stats: int, shots_avg: num, shots_on_target_avg: num, shots_against_avg: num,
-        possession_avg: num, corners_avg: num, xg_avg: num, xg_against_avg: num,
+        matches_with_stats: int(), shots_avg: num(), shots_on_target_avg: num(), shots_against_avg: num(),
+        possession_avg: num(), corners_avg: num(), xg_avg: num(), xg_against_avg: num(),
       }).nullable().optional().describe('Per-match averages over this season, computed from stored match statistics; null where the league has none'),
       ...ATTRIBUTION,
     }),
@@ -433,9 +436,9 @@ export function buildServer({ apiKey, apiBase, ref = 'mcp' } = {}) {
       team: z.string().nullable().optional().describe("Team name substring, e.g. 'Flamengo' — returns that team's row only"),
     },
     outputSchema: obj({
-      league: str, season: str, time_bins: z.array(z.string()).nullable().optional(),
-      stats: obj({ total_goals: int, most_active_period: str, late_goals: int, match_count: int }).nullable().optional(),
-      data: z.array(GOAL_TIMING_ROW).nullable().optional(), team_filter: str, team_not_found: str, note: str,
+      league: str(), season: str(), time_bins: z.array(z.string()).nullable().optional(),
+      stats: obj({ total_goals: int(), most_active_period: str(), late_goals: int(), match_count: int() }).nullable().optional(),
+      data: z.array(GOAL_TIMING_ROW).nullable().optional(), team_filter: str(), team_not_found: str(), note: str(),
       ...ATTRIBUTION,
     }),
   }, guard('get_goal_timing', async ({ league, season, team }) => {
@@ -462,17 +465,17 @@ export function buildServer({ apiKey, apiBase, ref = 'mcp' } = {}) {
     },
     outputSchema: obj({
       track_record: obj({
-        summary: SCORE.nullable().optional().describe('Whole window'),
-        by_question: z.record(z.string(), SCORE).nullable().optional(),
+        summary: SCORE().nullable().optional().describe('Whole window'),
+        by_question: z.record(z.string(), SCORE()).nullable().optional(),
         recent: z.array(obj({
-          slug: str, home_team: str, away_team: str, league: str, match_date: str,
-          question: str, side: str, line: num, model_prob: num,
-          outcome: str.describe("'correct' | 'incorrect' | 'void'"), result_score: str,
+          slug: str(), home_team: str(), away_team: str(), league: str(), match_date: str(),
+          question: str(), side: str(), line: num(), model_prob: num(),
+          outcome: str().describe("'correct' | 'incorrect' | 'void'"), result_score: str(),
         })).nullable().optional().describe('The 50 most recent scored predictions'),
-        pending: int.describe('Published but not yet scored'),
+        pending: int().describe('Published but not yet scored'),
         accuracy: obj({
-          n: int, brier: num.describe('Brier score over scored probabilities; lower is better, 0.25 = coin flip'),
-          buckets: z.array(obj({ lo: num, hi: num, n: int, avg_prob: num, hit_rate: num })).nullable().optional(),
+          n: int(), brier: num().describe('Brier score over scored probabilities; lower is better, 0.25 = coin flip'),
+          buckets: z.array(obj({ lo: num(), hi: num(), n: int(), avg_prob: num(), hit_rate: num() })).nullable().optional(),
         }).nullable().optional(),
       }),
       ...ATTRIBUTION,
