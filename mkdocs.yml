@@ -1,0 +1,7 @@
+site_name: Football Charts MCP & API Documentation
+site_url: https://www.football-charts.com/developers
+repo_url: https://github.com/ddevetak/footballcharts-mcp
+theme:
+  name: readthedocs
+nav:
+  - Home: index.md
