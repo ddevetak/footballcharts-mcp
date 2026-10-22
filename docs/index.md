@@ -4,12 +4,14 @@ Official documentation for the **[Football Charts](https://www.football-charts.c
 
 ## Overview
 
-[Football Charts](https://www.football-charts.com) provides daily calibrated **Dixon–Coles match probabilities**, **10,000-run Monte Carlo season simulations**, **goal-minute timing distributions**, and **historical pre-match odds archives** across **93 football leagues** worldwide.
+[Football Charts](https://www.football-charts.com) provides daily calibrated **Dixon–Coles match probabilities**, **10,000-run Monte Carlo season simulations**, **goal-minute timing distributions**, and **historical pre-match odds archives** across **98 football leagues** (44 countries) worldwide.
 
 - **Homepage:** [https://www.football-charts.com](https://www.football-charts.com)
+- **Daily Match Predictions:** [https://www.football-charts.com/predictions](https://www.football-charts.com/predictions)
+- **Global Team Attack/Defence Rankings:** [https://www.football-charts.com/rankings](https://www.football-charts.com/rankings)
 - **Developer & API Hub:** [https://www.football-charts.com/developers](https://www.football-charts.com/developers)
 - **Open Datasets (CC-BY-4.0):** [https://www.football-charts.com/data](https://www.football-charts.com/data)
-- **Interactive Dixon–Coles Calculator:** [https://www.football-charts.com/tools/dixon-coles-calculator](https://www.football-charts.com/tools/dixon-coles-calculator)
+- **Interactive Dixon–Coles & Shot-xG Calculator:** [https://www.football-charts.com/tools/dixon-coles-calculator](https://www.football-charts.com/tools/dixon-coles-calculator)
 - **Public Calibration Track Record:** [https://www.football-charts.com/track-record](https://www.football-charts.com/track-record)
 
 ## Hosted Keyless MCP Endpoint

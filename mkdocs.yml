@@ -1,5 +1,6 @@
 site_name: Football Charts MCP & API Documentation
-site_url: https://www.football-charts.com/developers
+site_description: Official documentation for the Football Charts Model Context Protocol (MCP) server and keyless JSON REST API across 98 football leagues.
+site_url: https://footballcharts.readthedocs.io/en/latest/
 repo_url: https://github.com/ddevetak/footballcharts-mcp
 theme:
   name: readthedocs
