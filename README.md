@@ -1,8 +1,10 @@
-# Football data MCP server — 93 leagues, lower divisions included (Football Charts)
+# Football data MCP server — 98 leagues, lower divisions included (Football Charts)
 
 [![npm](https://img.shields.io/npm/v/footballcharts-mcp)](https://www.npmjs.com/package/footballcharts-mcp) [![license](https://img.shields.io/npm/l/footballcharts-mcp)](LICENSE) [![MCP registry](https://img.shields.io/badge/MCP%20registry-io.github.ddevetak%2Ffootballcharts--mcp-blue)](https://registry.modelcontextprotocol.io)
 
-Give your AI assistant football data for **93 leagues** — including the lower
+**English** · [简体中文 (Simplified Chinese)](README.zh-CN.md)
+
+Give your AI assistant football data for **98 leagues** (across 44 countries) — including the lower
 divisions other sources skip: tables, results, fixtures, goal timing, a public
 baseline model and Monte Carlo season projections from
 [football-charts.com](https://www.football-charts.com).
@@ -22,7 +24,7 @@ curl -X POST https://footballcharts-backend.onrender.com/api/v1/keys/register/ \
   -d '{"email":"you@example.com"}'
 ```
 
-The key (`fc_...`) is shown once — store it. Both tiers: all 93 leagues
+The key (`fc_...`) is shown once — store it. Both tiers: all 98 leagues
 (top and lower divisions, women's leagues), current + previous season,
 model probabilities and daily 10,000-run Monte Carlo projections, **no
 betting odds** (the historical odds archive is a paid dataset at
@@ -77,7 +79,7 @@ Ten read-only tools. Each description says what the tool returns.
 | tool | use it for |
 |---|---|
 | `about_football_charts` | Summary of the source: leagues covered, what it does not hold, league-key and season formats, how to read the probabilities. |
-| `list_leagues` | Every league covered (93 across 42 countries) with its key, country and seasons available. |
+| `list_leagues` | Every league covered (98 across 44 countries) with its key, country and seasons available. |
 | `get_league_table` | Standings for one league season with form, expected points and a luck category; `view=luck` or `goals` for alternative rankings. |
 | `get_results` | Finished matches of one league season with full-time and half-time scores and first-goal minute; filter by `team`, keep the latest N with `last`. |
 | `get_fixtures` | Upcoming matches of one league with the model's calibrated probabilities. |
