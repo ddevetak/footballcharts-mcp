@@ -2,8 +2,8 @@
 // MCP server for football-charts.com — stdio transport (npx / Claude Desktop).
 //
 // 10 read-only tools (9 data + 1 orientation) over the developer API (/api/v1/).
-// A key is OPTIONAL since 0.4.0: without one the API serves 300 requests/day
-// per IP (20/min); FC_API_KEY lifts that to 5,000/day. All 93 leagues, current
+// A key is OPTIONAL since 0.4.0: without one the API serves 100 requests/day
+// per IP (20/min); FC_API_KEY lifts that to 200/day (2026-10-26). All 98 leagues, current
 // + previous season, no betting odds. FC publishes probabilities and a settled
 // track record, not tips.
 //

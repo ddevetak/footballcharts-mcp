@@ -1,7 +1,7 @@
 {
   "name": "football-charts",
   "version": "0.6.0",
-  "description": "Football (soccer) statistics for 93 leagues in 42 countries, including lower divisions and women's leagues: results with half-time scores, league tables, fixtures, goal timing and season projections. Read-only, no API key needed.",
+  "description": "Football (soccer) statistics for 98 leagues in 44 countries, including lower divisions and women's leagues: results with half-time scores, league tables, fixtures, goal timing and season projections. Read-only, no API key needed.",
   "author": {
     "name": "Football Charts",
     "email": "contact@football-charts.com",

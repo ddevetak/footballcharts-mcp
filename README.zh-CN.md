@@ -12,7 +12,7 @@
 
 ## 1. 免安装、免密钥直接连接（Streamable HTTP 托管端点）
 
-无需在本地安装 Node.js，也无需申请 API 密钥（匿名每天可调用 300 次；在[中文开发者页面](https://www.football-charts.com/zh-cn/developers?ref=github)用邮箱注册免费密钥后每天 5,000 次）：
+无需在本地安装 Node.js，也无需申请 API 密钥（托管端点的匿名调用共享每日总量；在[中文开发者页面](https://www.football-charts.com/zh-cn/developers?ref=github)用邮箱注册免费密钥后每天 200 次，供个人使用，同一邮箱的所有密钥合计）：
 
 ```json
 {

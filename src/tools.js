@@ -14,7 +14,7 @@
 // the prose no longer has to list fields. Annotations say read-only, so the
 // prose no longer has to either.
 //
-// `league` is a free string, not an enum of the 93 keys: an enum would add
+// `league` is a free string, not an enum of the league keys: an enum would add
 // ~700 tokens to every tool definition, and list_leagues already turns a
 // name into the key in one call (decision 2026-09-06, revisit if models
 // keep guessing keys).
@@ -191,7 +191,7 @@ const SCORE = () => obj({
 
 // ---------------------------------------------------------------------- about
 const ABOUT = {
-  what: 'football-charts.com: results, tables, fixtures, goal timing, a public baseline model and Monte Carlo season projections for 93 football leagues in 42 countries — top divisions, lower tiers most sources skip (Spain regional groups, Czech 2/3, Baltic, Nordic, Asian, African leagues) and women\'s leagues.',
+  what: 'football-charts.com: results, tables, fixtures, goal timing, a public baseline model and Monte Carlo season projections for 98 football leagues in 44 countries — top divisions, lower tiers most sources skip (Spain regional groups, Czech 2/3, Baltic, Nordic, Asian, African leagues) and women\'s leagues.',
   covers: [
     'league tables, results with half-time scores, fixtures, title and relegation races, and when teams score their goals',
     'lower and non-European divisions that many football sources do not carry',
@@ -209,7 +209,7 @@ const ABOUT = {
     'Goal-timing rows list each team\'s peak period or periods; ties are listed together.',
     'Every response carries source_url, the football-charts.com page with the same data, and the attribution "Data: football-charts.com".',
   ],
-  free_tier: 'Without a key: 300 requests/day and 20/min per IP. A free key raises this to 5,000/day and 60/min. Both cover all leagues for the current and previous season.',
+  free_tier: 'Without a key: 100 requests/day and 20/min per IP. A free key, for personal use, raises this to 200/day (all keys on one email address together) and 60/min. Both cover all leagues for the current and previous season.',
   get_a_key: 'Free keys: https://www.football-charts.com/developers (or POST https://footballcharts-backend.onrender.com/api/v1/keys/register/ with {"email": "..."}). Hosted server: https://mcp.football-charts.com/mcp (keyless) or /<key>/mcp.',
   tools: {
     list_leagues: 'league keys and the seasons available',
@@ -273,7 +273,7 @@ export function buildServer({ apiKey, apiBase, ref = 'mcp' } = {}) {
     title: 'About this source',
     annotations: { ...READ_ONLY, title: 'About this source' },
     description:
-      'Returns a summary of the football-charts.com source: the leagues and data it covers (93 leagues, including lower divisions), what it does not hold (live scores, player data, bookmaker odds), the league-key and season-string formats, how the model probabilities are produced, and the free-tier limits. No parameters.',
+      'Returns a summary of the football-charts.com source: the leagues and data it covers (98 leagues, including lower divisions), what it does not hold (live scores, player data, bookmaker odds), the league-key and season-string formats, how the model probabilities are produced, and the free-tier limits. No parameters.',
     inputSchema: {},
     outputSchema: obj({
       what: z.string(), covers: z.array(z.string()), not_held: z.array(z.string()),
@@ -286,7 +286,7 @@ export function buildServer({ apiKey, apiBase, ref = 'mcp' } = {}) {
     title: 'List leagues',
     annotations: { ...READ_ONLY, title: 'List leagues' },
     description:
-      'Returns every league covered (93 across 42 countries) with its league key, display name, country and the seasons available, newest first. Other tools take these league keys and season strings. Season format depends on the competition: \'2026-2027\' for winter-calendar leagues, \'2026\' for summer-calendar leagues. No parameters.',
+      'Returns every league covered (98 across 44 countries) with its league key, display name, country and the seasons available, newest first. Other tools take these league keys and season strings. Season format depends on the competition: \'2026-2027\' for winter-calendar leagues, \'2026\' for summer-calendar leagues. No parameters.',
     inputSchema: {},
     outputSchema: obj({
       leagues: z.array(obj({

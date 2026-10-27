@@ -15,8 +15,9 @@ Every model probability is published before kickoff and scored after; the
 
 ## No key needed
 
-Every tool works without an API key at **300 requests/day per IP** (20/min).
-A free key lifts that to **5,000/day, 60/min** — get one in seconds:
+Every tool works without an API key at **100 requests/day per IP** (20/min).
+A free key, for personal use, lifts that to **200/day, 60/min** (all keys on
+one email address count together) — get one in seconds:
 
 ```bash
 curl -X POST https://footballcharts-backend.onrender.com/api/v1/keys/register/ \

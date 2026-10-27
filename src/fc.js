@@ -31,7 +31,7 @@ export function makeClient({ apiKey = '', apiBase } = {}) {
       if (v !== undefined && v !== null && v !== '') url.searchParams.set(k, String(v));
     }
     // No key → no Authorization header: the API serves keyless callers at a
-    // small per-IP budget (300/day, 20/min) and its 429 says how to get a key.
+    // small per-IP budget (100/day, 20/min) and its 429 says how to get a key.
     const headers = { Accept: 'application/json', 'User-Agent': 'footballcharts-mcp/0.4' };
     // Names the tool behind this call so usage can be read per tool rather
     // than as one undifferentiated MCP total. Server-side it is treated as
@@ -40,7 +40,7 @@ export function makeClient({ apiKey = '', apiBase } = {}) {
     if (tool) headers['X-FC-Tool'] = tool;
     if (apiKey) headers.Authorization = `Bearer ${apiKey}`;
     // The hosted server serves every ChatGPT / Claude user from one egress
-    // address; without this the API's per-IP keyless budget (300/day) would be
+    // address; without this the API's per-IP keyless budget (100/day) would be
     // shared by all of them. The secret identifies the service, not a user,
     // so it may come from the environment. Unset → ordinary keyless call.
     const serviceSecret = (process.env.FC_MCP_SERVICE_SECRET || '').trim();

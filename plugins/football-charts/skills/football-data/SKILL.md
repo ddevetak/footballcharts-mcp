@@ -1,6 +1,6 @@
 ---
 name: football-data
-description: Look up or code against football (soccer) statistics from Football Charts, covering results with half-time scores, league tables, fixtures, goal timing and season projections for 93 leagues, including lower divisions. Use when the user asks about football results, tables or fixtures, or writes code that needs football data.
+description: Look up or code against football (soccer) statistics from Football Charts, covering results with half-time scores, league tables, fixtures, goal timing and season projections for 98 leagues, including lower divisions. Use when the user asks about football results, tables or fixtures, or writes code that needs football data.
 ---
 
 # Football Charts data
@@ -14,7 +14,7 @@ description: Look up or code against football (soccer) statistics from Football 
 
 ## In code (REST API)
 
-Base URL `https://footballcharts-backend.onrender.com/api/v1`. JSON, read-only, and no key is needed for 300 requests a day per IP. A free key from https://www.football-charts.com/developers raises that to 5,000 a day; send it as `Authorization: Bearer fc_...`.
+Base URL `https://footballcharts-backend.onrender.com/api/v1`. JSON, read-only, and no key is needed for 100 requests a day per IP. A free key from https://www.football-charts.com/developers, for personal use, raises that to 200 a day (all keys on one email address together); send it as `Authorization: Bearer fc_...`.
 
 | Endpoint | Returns |
 |---|---|
