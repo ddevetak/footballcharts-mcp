@@ -12,7 +12,7 @@ Official documentation for the **[Football Charts](https://www.football-charts.c
 - **Developer & API Hub:** [https://www.football-charts.com/developers](https://www.football-charts.com/developers)
 - **Simplified Chinese API Docs (中文接口文档):** [https://www.football-charts.com/zh-cn/developers](https://www.football-charts.com/zh-cn/developers)
 - **Simplified Chinese Stoppage-Time Open Dataset (中文开放数据集):** [https://www.football-charts.com/zh-cn/dataset](https://www.football-charts.com/zh-cn/dataset)
-- **Open Datasets (CC-BY-4.0):** [https://www.football-charts.com/data](https://www.football-charts.com/data)
+- **Open dataset (results and goal timing, CC BY 4.0, DOI):** [https://doi.org/10.5281/zenodo.22295583](https://doi.org/10.5281/zenodo.22295583)
 - **Interactive Dixon–Coles & Shot-xG Calculator:** [https://www.football-charts.com/tools/dixon-coles-calculator](https://www.football-charts.com/tools/dixon-coles-calculator)
 - **Public Calibration Track Record:** [https://www.football-charts.com/track-record](https://www.football-charts.com/track-record)
 
